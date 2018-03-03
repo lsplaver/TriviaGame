@@ -83,7 +83,7 @@ $(document).ready(function() {
             "Pen & Paper", "RPG", "ARPG", "Casual", "ARPG");
         questionArray.push(questionObject);
         questionObject = new QuestionObject(4, "How many Might and Magic (Not Heroes) games have"
-            + " there been?", "Too Many", "10", "15", "8", "10");
+            + " there been?", "7", "10", "15", "20", "10");
         questionArray.push(questionObject);
         questionObject = new QuestionObject(5, "What type of game is an ARPG?",
             "Strategy", "Role-Playing", "Action Role-Playing", "Adventure Role-Playing", "Action Role-Playing");
@@ -161,11 +161,13 @@ $(document).ready(function() {
             return timeRemaining;
         }
         else {
+            // display scores and end game screen before looping into the next game
             newGame = true;
             resetGame(newGame);
             // gameNumber++;
             // initialQuestion();
         }
+        return questionNumber;
     }
 
     function displayTimeRemaining (timeRemaining) {
@@ -197,6 +199,7 @@ $(document).ready(function() {
         //     questionNumber++;
         // }
 
+        $("button").show();
         return timeRemaining;
     }    
 
@@ -216,6 +219,7 @@ $(document).ready(function() {
         $("#btnAnswer2").text(questionArray[x].questionAnswer2);
         $("#btnAnswer3").text(questionArray[x].questionAnswer3);
         $("#btnAnswer4").text(questionArray[x].questionAnswer4);
+        $("#triviaQuestion").text(questionArray[x].questionTriviaQuestion);
     }
 
     if (newGame) {
@@ -235,4 +239,58 @@ $(document).ready(function() {
         newGame = false;
         return newGame;
     }
+
+    var btnClick;
+    $("body").on("click", "button", function() {
+        // var btnClick;
+        btnClick = event.srcElement.id;
+        switch (btnClick) {
+            case "btnAnswer1":
+                isAnswerCorrect(btnClick);
+                break;
+            case "btnAnswer2":
+                isAnswerCorrect(btnClick);
+                break;
+            case "btnAnswer3":
+                isAnswerCorrect(btnClick);
+                break;
+            case "btnAnswer4":
+                isAnswerCorrect(btnClick);
+                break;
+            default:
+                break;
+        }
+        // return btnClick;
+    // })
+
+        function isAnswerCorrect(btnClick, questionNumber) {
+            var z = questionNumber;
+            // var z = btnClick;
+            var x = $("#" + btnClick).text(); // .toString();
+            for (var y = 0; y < 6; y++) {
+                if ($("#triviaQuestion").text() === questionArray[y].questionTriviaQuestion) {
+                    if (/*$(btnClick).text()*/ x === questionArray[y].questionCorrectAnswer) {
+                        totalCorrect++;
+                        $("button").hide();
+                        $("#triviaQuestion").text("You guessed correctly!!");
+                        clearInterval(intervalId);
+                        timeRemaining = 5
+                        intervalId = setInterval(decrementTimer, 1000);
+                        // z = 6 - y;
+                        // y = y + z;
+                    }
+                    else {
+                        totalIncorrect++;
+                        $("button").hide();
+                        $("#triviaQuestion").text("You guessed incorrectly!!");
+                        clearInterval(intervalId);
+                        timeRemaining = 5
+                        intervalId = setInterval(decrementTimer, 1000);
+                        // z = 6 - y;
+                        // y = y + z;
+                    }
+                }
+            }
+        }
+    })
 })
