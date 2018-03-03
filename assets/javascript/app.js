@@ -46,6 +46,13 @@ $(document).ready(function() {
         var newGame = true;
         return newGame;
     }
+
+    var timeRemaining;
+
+    function initTimeRemaining() {
+        timeRemaining = 30;
+        return timeRemaining;
+    }
     
     function QuestionObject(questionNum, questionTriviaQuestion, questionAnswer1,
         questionAnswer2, questionAnswer3, questionAnswer4, questionCorrectAnswer) {
@@ -121,5 +128,67 @@ $(document).ready(function() {
 
     initializeVariables();
 
-    
+    initTimeRemaining();
+
+    var intervalId, questionNumber;
+
+    function initQuestionNumber() {
+        questionNumber = 0;
+        return questionNumber;
+    }
+
+    initQuestionNumber();
+
+    function initialQuestion() {
+        // intervalId = setInterval(decrementTimer, 1000);
+        resetIntervalId();
+    }
+
+    initialQuestion();
+
+    function resetIntervalId() {
+        intervalId = setInterval(decrementTimer, 1000);
+    }
+
+    function currentQuestion(questionNumber) {
+        if (questionNumber < 6) {
+            timeRemaining = initTimeRemaining();
+            // intervalId = setInterval(decrementTimer, 1000);
+            resetIntervalId();
+            return timeRemaining;
+        }
+        else {
+            newGame = true;
+            gameNumber++;
+            initialQuestion();
+        }
+    }
+
+    function displayTimeRemaining (timeRemaining) {
+        $("#timeRemaining").text("Time Remaining: " + timeRemaining);
+        console.log("The current timeRemaining is: " + timeRemaining);
+        newGame = false;
+        return newGame;
+    }
+
+    displayTimeRemaining(timeRemaining);
+
+    function decrementTimer() { // timeRemaining) {
+        // for (var x = 0; x < 30; x++) {
+            timeRemaining--;
+            displayTimeRemaining(timeRemaining);
+        // }
+
+        // return timeRemaining;
+
+        if (timeRemaining === 0) {
+            clearInterval(intervalId);
+            questionNumber++;
+            currentQuestion(questionNumber);
+        }
+
+        return timeRemaining;
+    }    
+
+    decrementTimer(timeRemaining);
 })
