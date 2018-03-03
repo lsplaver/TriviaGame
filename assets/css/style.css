@@ -1,26 +1,20 @@
-.col-2 {
-    width: 0.1667%;
-    background-color: crimson;
-}
-
-.col-8 {
-    width: 0.6667%;
-    /* float: right; */
-    text-align: center;
-}
-
-#right-col {
-    /* float: right; */
-}
-
-#left-col {
-    /* float: left; */
-}
-
-.row {
+#wrapper {
+    position: relative;
     /* center */
     border-width: 5px;
     text-align: center;
-    width: 500px;
+    width: 800px;
     background-color: cyan;
+    left: calc(50% - 400px);
+    right: calc(50% - 400px);
+    height: calc(100%);
+}
+
+.score {
+    font-weight: bolder;
+    background-color: paleturquoise;
+}
+
+body {
+    text-align: center;
 }
