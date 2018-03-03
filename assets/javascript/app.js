@@ -159,7 +159,7 @@ $(document).ready(function() {
         }
         else {
             newGame = true;
-            gameNumber++;
+            // gameNumber++;
             initialQuestion();
         }
     }
@@ -167,8 +167,11 @@ $(document).ready(function() {
     function displayTimeRemaining (timeRemaining) {
         $("#timeRemaining").text("Time Remaining: " + timeRemaining);
         console.log("The current timeRemaining is: " + timeRemaining);
-        newGame = false;
-        return newGame;
+        if (questionNumber === 0) {
+            newGame = false;
+            return newGame;
+        }
+        // return newGame;
     }
 
     displayTimeRemaining(timeRemaining);
