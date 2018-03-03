@@ -47,104 +47,59 @@ $(document).ready(function() {
         return newGame;
     }
     
-//    function initQuestionArray() {
-//        var obj1 = {}, obj2 = {};
-//        var questionArray = [obj1, obj2];
-//        return questionArray;
-//    }
-
-    // console.log("The value of questionArray: " + questionArray);
-    // // var tempArray = [];
-    // let tempArray = questionArray;
-    var questionObject = {};
-    function initQuestionObject(questionObject) {
-//        /*var*/ questionObject = {
-//            questionNum: 1,
-//            questionTriviaQuestion: "A question",
-//            questionAnswer1: "answer1",
-//            questionAnswer2: "anser2",
-//            questionAnswer3: "answertr3",
-//            questionAnswer4: "ansdwert4",
-//            questionCorrectAnswer: 0
-//        };
-
-            questionObject.questionNum = -1,
-            questionObject.questionTriviaQuestion = "A question",
-            questionObject.questionAnswer1 = "answer1",
-            questionObject.questionAnswer2 = "anser2",
-            questionObject.questionAnswer3 = "answertr3",
-            questionObject.questionAnswer4 = "ansdwert4",
-            questionObject.questionCorrectAnswer = 0;
-
-        return questionObject;
+    function QuestionObject(questionNum, questionTriviaQuestion, questionAnswer1,
+        questionAnswer2, questionAnswer3, questionAnswer4, questionCorrectAnswer) {
+            this.questionNum = questionNum;
+            this.questionTriviaQuestion = questionTriviaQuestion;
+            this.questionAnswer1 = questionAnswer1;
+            this.questionAnswer2 = questionAnswer2;
+            this.questionAnswer3 = questionAnswer3;
+            this.questionAnswer4 = questionAnswer4;
+            this.questionCorrectAnswer = questionCorrectAnswer;
     }
 
-    console.log("The value of questionObject: " + questionObject.toString());
     var questionArray = [];
     console.log("The value of questionArray is: " + questionArray);
-//    function questionMatrix(questionObject, questionArray) {
-//        // questionArray[] = aQuestArray;
-//        var anArray = true;
-//        console.log("The value of anArray before being a boolean: " + anArray);
-//        anArray = questionArray.isArray();
-//        console.log("The value of anArray after checking if questionArray is an array: " + anArray);
-//        questionArray.push(questionObject);
-//        for (var x = 0; x < questionArray.length; x++) {
-//            console.log("the value of questionArray[x] and questionObject[x] are: " + questionArray[x]);
-//        }
-//
-//        return questionArray;
-//
-//    }
-//
-//    initQuestionArray();
-    
-    initQuestionObject(questionObject);
 
-//    questionMatrix(questionObject, questionArray[]);
-    questionArray.push(questionObject);
-    for (var x = 0; x < questionArray.length; x++) {
-        console.log("the value of questionArray[x].questionNum is: "
-            + questionArray[x].questionNum);
-        console.log("the value of questionArray[x].questionTriviaQuestion\n\
-            is: " + questionArray[x].questionTriviaQuestion);
-        console.log("the value of questionArray[x].questionAnswer1 is: "
-            + questionArray[x].questionAnswer1);
-        console.log("the value of questionArray[x].questionAnswer2 is: "
-            + questionArray[x].questionAnswer2);
-        console.log("the value of questionArray[x].questionAnswer3 is: "
-            + questionArray[x].questionAnswer3);
-        console.log("the value of questionArray[x].questionAnswer4 is: "
-            + questionArray[x].questionAnswer4);
-        console.log("the value of questionArray[x].questionCorrectAnswer \n\
-            is: " + questionArray[x].questionCorrectAnswer);
+    function setQuestionObject() {
+        // questionObject = new QuestionObject(-1, "A question", "answer1", "anser2",
+        //     "answertr3", "ansdwert4", 0);
+        // console.log("The value of questionObject: " + questionObject.toString());
+        // questionArray.push(questionObject);
+        questionObject = new QuestionObject(1, "What type of game system is Pathfinder RPG?",
+            "Pen & Paper", "PC", "Figurines", "GURPs", 1);
+        questionArray.push(questionObject);
+        questionObject = new QuestionObject(2, "What type of game were the old Fallout games?",
+            "Pen & Paper", "XBox", "ARPG", "RPG", 4);
+        questionArray.push(questionObject);
+        questionObject = new QuestionObject(3, "What type of game have the newer Fallout games been?",
+            "Pen & Paper", "RPG", "ARPG", "Casual", 3);
+        questionArray.push(questionObject);
+        questionObject = new QuestionObject(4, "How many Might and Magic (Not Heroes) games have"
+            + " there been?", "Too Many", "10", "15", "8", 2);
+        questionArray.push(questionObject);
+        questionObject = new QuestionObject(5, "What type of game is an ARPG?",
+            "Strategy", "Role-Playing", "Action Role-Playing", "Adventure Role-Playing", 3);
+        questionArray.push(questionObject);
+        questionObject = new QuestionObject(6, "Which game system does the Baldur's Gate series use?",
+            "Pathfinder", "2nd Edition AD&D", "ShadowRun", "GURPs", 2);
+        questionArray.push(questionObject);
+        // questionObject = new QuestionObject(7, "What type of game system is Pathfinder RPG?",
+        //     "Pen & Paper", "PC", "Figurines", "GURPs", 1);
+        // questionArray.push(questionObject);
+        // questionObject = new QuestionObject(8, "What type of game system is Pathfinder RPG?",
+        //     "Pen & Paper", "PC", "Figurines", "GURPs", 1);
+        // questionArray.push(questionObject);
+        // questionObject = new QuestionObject(9, "What type of game system is Pathfinder RPG?",
+        //     "Pen & Paper", "PC", "Figurines", "GURPs", 1);
+        // questionArray.push(questionObject);
+        // questionObject = new QuestionObject(10, "What type of game system is Pathfinder RPG?",
+        //     "Pen & Paper", "PC", "Figurines", "GURPs", 1);
+        // questionArray.push(questionObject);
     }
 
-    function questionObject1(questionObject) {
-        //        /*var*/ questionObject = {
-        //            questionNum: 1,
-        //            questionTriviaQuestion: "A question",
-        //            questionAnswer1: "answer1",
-        //            questionAnswer2: "anser2",
-        //            questionAnswer3: "answertr3",
-        //            questionAnswer4: "ansdwert4",
-        //            questionCorrectAnswer: 0
-        //        };
+    setQuestionObject();
 
-        questionObject = new Object();
-            
-        questionObject.questionNum = 1,
-        questionObject.questionTriviaQuestion = "What type of game system is Pathfinder RPG?",
-        questionObject.questionAnswer1 = "Pen & Paper",
-        questionObject.questionAnswer2 = "PC",
-        questionObject.questionAnswer3 = "Figurines",
-        questionObject.questionAnswer4 = "GURPs",
-        questionObject.questionCorrectAnswer = 1;
-            
-        return questionObject;
-    }
-            
-    questionArray.push(questionObject);
     for (var x = 0; x < questionArray.length; x++) {
         console.log("the value of questionArray[x].questionNum is: "
             + questionArray[x].questionNum);
@@ -165,4 +120,6 @@ $(document).ready(function() {
     initialButtons();
 
     initializeVariables();
+
+    
 })
