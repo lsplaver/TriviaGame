@@ -47,7 +47,14 @@ $(document).ready(function() {
     //     return questionArray;
     // }
 
-    var timeRemaining, questionArray = [], newGame, correctAnswerChosen, totalCorrect, totalIncorrect, totalUnanswered;
+    var timeRemaining, questionArray = [], newGame, correctAnswerChosen, totalCorrect, totalIncorrect, totalUnanswered, betweenQuestions;
+
+    function initBetweenQuestions() {
+        betweenQuestions = false;
+        return betweenQuestions;
+    }
+
+
 
     function initTimeRemaining() {
         timeRemaining = 30;
@@ -130,7 +137,7 @@ $(document).ready(function() {
 
     // initTimeRemaining();
 
-    var intervalId, questionNumber;
+    var intervalId, questionNumber, timeoutId;
 
     function initQuestionNumber() {
         questionNumber = 0;
@@ -162,12 +169,44 @@ $(document).ready(function() {
         }
         else {
             // display scores and end game screen before looping into the next game
+            $("button").hide();
+            $("#triviaQuestion").text("Here is your score for this game");
+            displayScores(totalCorrect, totalIncorrect, totalUnanswered);
+            $(".score").show();
+            clearInterval(intervalId);
+            timeRemaining = 5
+            intervalId = setInterval(decrementTimer, 1000);
+
             newGame = true;
             resetGame(newGame);
             // gameNumber++;
             // initialQuestion();
         }
         return questionNumber;
+    }
+
+    function initializeScoreBody() {
+        // var scoreType = ["Correct", "Incorrect", "Unanswered"];
+        // for (var x = 0; x < 3; x++) {
+            // $("<div>").attr("class", "score").attr("id", ("total" + scoreType[x])).hide();
+            // $("#scoreBody").append("total" + scoreType[x]);
+            var newDiv = $("<div>");
+            newDiv = $(newDiv).attr("class", "score").attr("id", "totalCorrectScore").hide();
+            $("#scoreBody").append(newDiv);
+            newDiv = $("<div>");
+            newDiv = $(newDiv).attr("class", "score").attr("id", "totalIncorrectScore").hide();
+            $("#scoreBody").append(newDiv);
+            newDiv = $("<div>");
+            newDiv = $(newDiv).attr("class", "score").attr("id", "totalUnansweredScore").hide();
+            $("#scoreBody").append(newDiv);
+        // }
+        displayScores(initTotCorct(), initTotIncorct(), initTotUnanswr());
+    }
+
+    function displayScores(totalCorrect, totalIncorrect, totalUnanswered) {
+        $("#totalCorrectScore").text("You got " + totalCorrect + " answers correct");
+        $("#totalIncorrectScore").text("You got " + totalIncorrect + " answers incorrect");
+        $("#totalUnansweredScore").text("You left " + totalUnanswered + " questions unanswered");
     }
 
     function displayTimeRemaining (timeRemaining) {
@@ -191,6 +230,17 @@ $(document).ready(function() {
         // return timeRemaining;
 
         if (timeRemaining === 0) {
+            if (!betweenQuestions) {
+                totalUnanswered++;
+                $("button").hide();
+                $("#triviaQuestion").text("Time's Up! You were unable to answer in the allotted time");
+                clearInterval(intervalId);
+                timeRemaining = 5
+                intervalId = setInterval(decrementTimer, 1000);
+            }
+
+            clearTimeout(timeoutId);
+            timeoutId = setTimeout($("button").show(), 1000);
             clearInterval(intervalId);
             questionNumber++;
             currentQuestion(questionNumber);
@@ -199,7 +249,10 @@ $(document).ready(function() {
         //     questionNumber++;
         // }
 
-        $("button").show();
+        // $("button").show();
+        // var timeoutID = setTimeout($("button").show(), 5000);
+        // clearTimeout(timeoutId);
+        // timeoutId = setTimeout($("button").show(), 5000);
         return timeRemaining;
     }    
 
@@ -227,6 +280,8 @@ $(document).ready(function() {
     }
 
     function resetGame() {
+        $(".score").hide();
+        $("button").show();
         initCorrAnswrChsn();
         initQuestionNumber();
         initTotCorct();
@@ -234,7 +289,9 @@ $(document).ready(function() {
         initTotUnanswr();
         initTimeRemaining();
         initialQuestion();
+        initializeScoreBody();
         currentQuestion(questionNumber);
+        initBetweenQuestions();
         // populateButtons(questionNumber);
         newGame = false;
         return newGame;
@@ -276,6 +333,8 @@ $(document).ready(function() {
                         clearInterval(intervalId);
                         timeRemaining = 5
                         intervalId = setInterval(decrementTimer, 1000);
+                        // timeoutID = setTimeout($("button").show(), 5000);
+                        betweenQuestions = true;
                         // z = 6 - y;
                         // y = y + z;
                     }
@@ -286,6 +345,8 @@ $(document).ready(function() {
                         clearInterval(intervalId);
                         timeRemaining = 5
                         intervalId = setInterval(decrementTimer, 1000);
+                        // timeoutID = setTimeout($("button").show(), 5000);
+                        betweenQuestions = true;
                         // z = 6 - y;
                         // y = y + z;
                     }
