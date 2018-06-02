@@ -1,8 +1,8 @@
-$(document).ready(function() {
+$(document).ready(function () {
     function initialButtons() {
         for (var x = 0; x < 4; x++) {
             var newBtn = $("<button></button>");
-            newBtn = $(newBtn).attr("id", ("btnAnswer"+(x+1))).text(("Empty answer button #" + (x+1)));
+            newBtn = $(newBtn).attr("id", ("btnAnswer" + (x + 1))).text(("Empty answer button #" + (x + 1)));
             $("#answerButtons").append(newBtn);
             var newBr = $("<br>");
             $("#answerButtons").append(newBr);
@@ -18,34 +18,29 @@ $(document).ready(function() {
     }
 
     function initCorrAnswrChsn() {
-        /*var*/ correctAnswerChosen = false;
+        correctAnswerChosen = false;
         return correctAnswerChosen;
     }
 
     function initTotCorct() {
-        /*var*/ totalCorrect = 0;
+        totalCorrect = 0;
         return totalCorrect;
     }
 
     function initTotIncorct() {
-        /*var*/ totalIncorrect = 0;
+        totalIncorrect = 0;
         return totalIncorrect;
     }
 
     function initTotUnanswr() {
-        /*var*/ totalUnanswered = 0;
+        totalUnanswered = 0;
         return totalUnanswered;
     }
 
     function initNewGame() {
-        /*var*/ newGame = true;
+        newGame = true;
         return newGame;
     }
-
-    // function initQuestionArray() {
-    //     questionArray = new Array(0);
-    //     return questionArray;
-    // }
 
     var timeRemaining, questionArray = [], newGame, correctAnswerChosen, totalCorrect, totalIncorrect, totalUnanswered, betweenQuestions;
 
@@ -54,32 +49,25 @@ $(document).ready(function() {
         return betweenQuestions;
     }
 
-
-
     function initTimeRemaining() {
         timeRemaining = 30;
         return timeRemaining;
     }
-    
+
     function QuestionObject(questionNum, questionTriviaQuestion, questionAnswer1,
         questionAnswer2, questionAnswer3, questionAnswer4, questionCorrectAnswer) {
-            this.questionNum = questionNum;
-            this.questionTriviaQuestion = questionTriviaQuestion;
-            this.questionAnswer1 = questionAnswer1;
-            this.questionAnswer2 = questionAnswer2;
-            this.questionAnswer3 = questionAnswer3;
-            this.questionAnswer4 = questionAnswer4;
-            this.questionCorrectAnswer = questionCorrectAnswer;
+        this.questionNum = questionNum;
+        this.questionTriviaQuestion = questionTriviaQuestion;
+        this.questionAnswer1 = questionAnswer1;
+        this.questionAnswer2 = questionAnswer2;
+        this.questionAnswer3 = questionAnswer3;
+        this.questionAnswer4 = questionAnswer4;
+        this.questionCorrectAnswer = questionCorrectAnswer;
     }
 
-    // var questionArray = [];
     console.log("The value of questionArray is: " + questionArray);
 
     function setQuestionObject() {
-        // questionObject = new QuestionObject(-1, "A question", "answer1", "anser2",
-        //     "answertr3", "ansdwert4", 0);
-        // console.log("The value of questionObject: " + questionObject.toString());
-        // questionArray.push(questionObject);
         questionObject = new QuestionObject(1, "What type of game system is Pathfinder RPG?",
             "Pen & Paper", "PC", "Figurines", "GURPs", "Pen & Paper");
         questionArray.push(questionObject);
@@ -98,18 +86,6 @@ $(document).ready(function() {
         questionObject = new QuestionObject(6, "Which game system does the Baldur's Gate series use?",
             "Pathfinder", "2nd Edition AD&D", "ShadowRun", "GURPs", "2nd Edition AD&D");
         questionArray.push(questionObject);
-        // questionObject = new QuestionObject(7, "What type of game system is Pathfinder RPG?",
-        //     "Pen & Paper", "PC", "Figurines", "GURPs", 1);
-        // questionArray.push(questionObject);
-        // questionObject = new QuestionObject(8, "What type of game system is Pathfinder RPG?",
-        //     "Pen & Paper", "PC", "Figurines", "GURPs", 1);
-        // questionArray.push(questionObject);
-        // questionObject = new QuestionObject(9, "What type of game system is Pathfinder RPG?",
-        //     "Pen & Paper", "PC", "Figurines", "GURPs", 1);
-        // questionArray.push(questionObject);
-        // questionObject = new QuestionObject(10, "What type of game system is Pathfinder RPG?",
-        //     "Pen & Paper", "PC", "Figurines", "GURPs", 1);
-        // questionArray.push(questionObject);
     }
 
     setQuestionObject();
@@ -130,12 +106,10 @@ $(document).ready(function() {
         console.log("the value of questionArray[x].questionCorrectAnswer \n\
             is: " + questionArray[x].questionCorrectAnswer);
     }
-        
+
     initialButtons();
 
     initializeVariables();
-
-    // initTimeRemaining();
 
     var intervalId, questionNumber, timeoutId;
 
@@ -144,15 +118,10 @@ $(document).ready(function() {
         return questionNumber;
     }
 
-    // initQuestionNumber();
-
     function initialQuestion() {
-        // intervalId = setInterval(decrementTimer, 1000);
         resetIntervalId();
         questionNumber = initQuestionNumber();
     }
-
-    // initialQuestion();
 
     function resetIntervalId() {
         clearInterval(intervalId);
@@ -162,9 +131,9 @@ $(document).ready(function() {
     function currentQuestion(questionNumber) {
         if (questionNumber < 6) {
             timeRemaining = initTimeRemaining();
-            // intervalId = setInterval(decrementTimer, 1000);
             populateButtons(questionNumber);
             resetIntervalId();
+            initBetweenQuestions();
             return timeRemaining;
         }
         else {
@@ -174,32 +143,25 @@ $(document).ready(function() {
             displayScores(totalCorrect, totalIncorrect, totalUnanswered);
             $(".score").show();
             clearInterval(intervalId);
-            timeRemaining = 5
+            timeRemaining = 5;
             intervalId = setInterval(decrementTimer, 1000);
 
             newGame = true;
             resetGame(newGame);
-            // gameNumber++;
-            // initialQuestion();
         }
         return questionNumber;
     }
 
     function initializeScoreBody() {
-        // var scoreType = ["Correct", "Incorrect", "Unanswered"];
-        // for (var x = 0; x < 3; x++) {
-            // $("<div>").attr("class", "score").attr("id", ("total" + scoreType[x])).hide();
-            // $("#scoreBody").append("total" + scoreType[x]);
-            var newDiv = $("<div>");
-            newDiv = $(newDiv).attr("class", "score").attr("id", "totalCorrectScore").hide();
-            $("#scoreBody").append(newDiv);
-            newDiv = $("<div>");
-            newDiv = $(newDiv).attr("class", "score").attr("id", "totalIncorrectScore").hide();
-            $("#scoreBody").append(newDiv);
-            newDiv = $("<div>");
-            newDiv = $(newDiv).attr("class", "score").attr("id", "totalUnansweredScore").hide();
-            $("#scoreBody").append(newDiv);
-        // }
+        var newDiv = $("<div>");
+        newDiv = $(newDiv).attr("class", "score").attr("id", "totalCorrectScore").hide();
+        $("#scoreBody").append(newDiv);
+        newDiv = $("<div>");
+        newDiv = $(newDiv).attr("class", "score").attr("id", "totalIncorrectScore").hide();
+        $("#scoreBody").append(newDiv);
+        newDiv = $("<div>");
+        newDiv = $(newDiv).attr("class", "score").attr("id", "totalUnansweredScore").hide();
+        $("#scoreBody").append(newDiv);
         displayScores(initTotCorct(), initTotIncorct(), initTotUnanswr());
     }
 
@@ -209,62 +171,53 @@ $(document).ready(function() {
         $("#totalUnansweredScore").text("You left " + totalUnanswered + " questions unanswered");
     }
 
-    function displayTimeRemaining (timeRemaining) {
+    function displayTimeRemaining(timeRemaining) {
         $("#timeRemaining").text("Time Remaining: " + timeRemaining);
         console.log("The current timeRemaining is: " + timeRemaining);
         if (questionNumber === 0) {
             newGame = true;
             return newGame;
         }
-        // return newGame;
     }
 
     displayTimeRemaining(timeRemaining);
 
-    function decrementTimer() { // timeRemaining) {
-        // for (var x = 0; x < 30; x++) {
-            timeRemaining--;
-            displayTimeRemaining(timeRemaining);
-        // }
+    function decrementTimer() {
+        timeRemaining--;
+        displayTimeRemaining(timeRemaining);
 
-        // return timeRemaining;
+        if ((timeRemaining === 0) && (!betweenQuestions)) {
+            totalUnanswered++;
+            $("button").hide();
+            $("#triviaQuestion").text("Time's Up! You were unable to answer in the allotted time");
+            clearTimeout(timeoutId);
+            timeoutId = setTimeout(showButtons(timeoutId), 5000);
+            clearInterval(intervalId);
+            timeRemaining = 5;
+            intervalId = setInterval(decrementTimer, 1000);
+            questionNumber++;
+            currentQuestion(questionNumber);
+        }
 
-        if (timeRemaining === 0) {
-            if (!betweenQuestions) {
-                totalUnanswered++;
-                $("button").hide();
-                $("#triviaQuestion").text("Time's Up! You were unable to answer in the allotted time");
-                clearInterval(intervalId);
-                timeRemaining = 5
-                intervalId = setInterval(decrementTimer, 1000);
-            }
-
+        else if ((timeRemaining === 0) && (betweenQuestions)) {
             clearTimeout(timeoutId);
             timeoutId = setTimeout($("button").show(), 1000);
             clearInterval(intervalId);
             questionNumber++;
             currentQuestion(questionNumber);
         }
-        // else {
-        //     questionNumber++;
-        // }
 
-        // $("button").show();
-        // var timeoutID = setTimeout($("button").show(), 5000);
-        // clearTimeout(timeoutId);
-        // timeoutId = setTimeout($("button").show(), 5000);
         return timeRemaining;
-    }    
+    }
+
+    function showButtons(timeoutId) {
+        if (timeoutId === 5000) {
+            $("button").show();
+            clearTimeout(timeoutId);
+        }
+    }
 
     decrementTimer(timeRemaining);
-
-    // function randomizeQuestions() {
-    //     var randNumber1, randNumber2, randNumber3, randNumber4;
-    //     randNumber1 = Math.floor((Math.random() * 4) + 1);
-    //     randNumber2 = Math.floor((Math.random() * 4) + 1);
-    //     randNumber3 = Math.floor((Math.random() * 4) + 1);
-    //     randNumber4 = Math.floor((Math.random() * 4) + 1);
-    // }
 
     function populateButtons(questionNumber) {
         var x = questionNumber;
@@ -292,14 +245,12 @@ $(document).ready(function() {
         initializeScoreBody();
         currentQuestion(questionNumber);
         initBetweenQuestions();
-        // populateButtons(questionNumber);
         newGame = false;
         return newGame;
     }
 
     var btnClick;
-    $("body").on("click", "button", function() {
-        // var btnClick;
+    $("body").on("click", "button", function () {
         btnClick = event.srcElement.id;
         switch (btnClick) {
             case "btnAnswer1":
@@ -317,41 +268,33 @@ $(document).ready(function() {
             default:
                 break;
         }
-        // return btnClick;
-    // })
 
         function isAnswerCorrect(btnClick, questionNumber) {
             var z = questionNumber;
-            // var z = btnClick;
-            var x = $("#" + btnClick).text(); // .toString();
+            var x = $("#" + btnClick).text();
             for (var y = 0; y < 6; y++) {
                 if ($("#triviaQuestion").text() === questionArray[y].questionTriviaQuestion) {
-                    if (/*$(btnClick).text()*/ x === questionArray[y].questionCorrectAnswer) {
+                    if (x === questionArray[y].questionCorrectAnswer) {
                         totalCorrect++;
                         $("button").hide();
                         $("#triviaQuestion").text("You guessed correctly!!");
                         clearInterval(intervalId);
-                        timeRemaining = 5
+                        timeRemaining = 5;
                         intervalId = setInterval(decrementTimer, 1000);
-                        // timeoutID = setTimeout($("button").show(), 5000);
                         betweenQuestions = true;
-                        // z = 6 - y;
-                        // y = y + z;
                     }
+
                     else {
                         totalIncorrect++;
                         $("button").hide();
                         $("#triviaQuestion").text("You guessed incorrectly!!");
                         clearInterval(intervalId);
-                        timeRemaining = 5
+                        timeRemaining = 5;
                         intervalId = setInterval(decrementTimer, 1000);
-                        // timeoutID = setTimeout($("button").show(), 5000);
                         betweenQuestions = true;
-                        // z = 6 - y;
-                        // y = y + z;
                     }
                 }
             }
         }
-    })
-})
+    });
+});
